@@ -21,6 +21,10 @@
 (defjson "/api/places" {person_id :person_id}
   (votes/add-user-votes person_id (places/get-all)))
 
+;; Returns the list of votes.
+(defjson "/api/votes" {}
+  @votes/data)
+
 ;; Submit a vote, pass person id and place id.
 ;; Returns
 ;;   0 - success, added.
@@ -46,4 +50,5 @@
 
 ;; Make a random selection.
 (defjson "/api/select" {}
-  (votes/select))
+  (let [place_id (votes/select)]
+    (places/get-by-id (:id place_id))))

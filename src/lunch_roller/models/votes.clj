@@ -38,10 +38,8 @@
         pick         (int (rand total-weight))]
     (println by-place total-weight pick)
     (loop [sum-til-now      0
-           
            [next & remaining] by-place]
-      (if (nil? remaining)
+      (println pick sum-til-now)
+      (if (<= pick sum-til-now)
         (first next)
-        (if (<= pick sum-til-now)
-          (first next)
-          (recur (+ sum-til-now (second next)) remaining))))))
+        (recur (+ sum-til-now (second next)) remaining)))))

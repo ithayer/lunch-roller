@@ -32,6 +32,9 @@
 (defn get-all []
   @data)
 
+(defn get-by-id [id]
+  (some (comp (partial = id) :id) @data))
+
 ;;    "businesses": [
 ;;    {
 ;;      "categories": [
