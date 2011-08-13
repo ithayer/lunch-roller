@@ -9,4 +9,3 @@
 
 (defn get-by-id [id]
   (some (= id :id) @data))
-

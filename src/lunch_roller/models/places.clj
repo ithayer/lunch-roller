@@ -2,7 +2,7 @@
   (:use clj-yelp.v2))
 
 
-(def data (atom {}))
+(defonce data (atom {}))
 (def api-account {:consumer-key "W1M5MaPhBsPy3yztRyA_8Q"
                   :consumer-secret "LtVwl1PDVFqmY10cHNOZhOdYe6M"
                   :token "umPBe3HtXzzn6pjOkS_WejzEWkI9V8eW"
@@ -33,7 +33,7 @@
   @data)
 
 (defn get-by-id [id]
-  (first (filter (comp (partial = id) :id) @data)))
+  (first (filter #(= (:id %) id) @data)))
 
 ;;    "businesses": [
 ;;    {

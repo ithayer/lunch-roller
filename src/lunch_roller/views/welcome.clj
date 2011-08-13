@@ -57,5 +57,7 @@
 
 ;; Make a random selection.
 (defjson "/api/select" {}
-  (let [place_id (votes/select)]
-    (places/get-by-id (:id place_id))))
+  (let [place_id (votes/select)
+        result (places/get-by-id place_id)]
+    (println "GOT " result " FOR ID " place_id " AND PLACES: " (first @places/data))
+    result))
