@@ -1,0 +1,13 @@
+html, body {
+	background: #FFF;
+	color: #444;
+}
+
+div#container {
+	margin: 0 auto;
+	width: 920px;
+}
+
+#logger {
+	width: 920px;
+}
