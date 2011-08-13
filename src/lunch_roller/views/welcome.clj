@@ -45,3 +45,5 @@
   (do (votes/del person_id place_id) 0))
 
 ;; Make a random selection.
+(defjson "/api/select" {}
+  (votes/select))

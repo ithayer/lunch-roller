@@ -19,15 +19,29 @@
   @data)
 
 (defn same-day [t1 t2]
-  (every? identity (map #(= (% t1) (% t2)) [time/year time/month time/day])))
+  (every? identity (map #(= (% t1) (% (time-coerce/from-long t2))) [time/year time/month time/day])))
 
 (defn get-today []
-  (filter (partial same-day (time/now)) @data))
+  (filter #(same-day (time/now) (:time %)) @data))
 
 (defn add-user-votes [person_id places]
   (let [votes (into {} (map (juxt :place_id :vote) (filter #(= (:person_id %) person_id) @data)))]
     (for [p places]
       (assoc p :vote (get votes (:id p))))))
 
+;; Take all votes, randomly sample, returns a place id.
 (defn select []
-  "Selects randomly, assigning probability based on number of votes." {})
+  "Selects randomly, assigning probability based on number of votes."
+  (let [todays-votes (get-today)
+        by-place     (map (fn [[place_id votes]] [place_id (count votes)]) (group-by :place_id todays-votes))
+        total-weight (reduce + (map second by-place))
+        pick         (int (rand total-weight))]
+    (println by-place total-weight pick)
+    (loop [sum-til-now      0
+           
+           [next & remaining] by-place]
+      (if (nil? remaining)
+        (first next)
+        (if (<= pick sum-til-now)
+          (first next)
+          (recur (+ sum-til-now (second next)) remaining))))))
