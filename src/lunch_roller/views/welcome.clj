@@ -9,19 +9,19 @@
         hiccup.core
         hiccup.page-helpers))
 
-(defmacro defjson [route destruct & body]
-  `(defpage ~route ~destruct
-     (resp/json ~@body)))
-
 (defpage "/" []
          (common/layout
            [:p "Welcome to lunch-roller"]))
 
-;; Returns the list of restaurants.
-(defjson "/api/places" {}
-  (places/get-all))
+(defmacro defjson [route destruct & body]
+  `(defpage ~route ~destruct
+     (resp/json ~@body)))
 
-;; Submit a vote, pass person _id and place _id.
+;; Returns the list of restaurants.
+(defjson "/api/places" {person_id :person_id}
+  (votes/add-user-votes person_id (places/get-all)))
+
+;; Submit a vote, pass person id and place id.
 ;; Returns
 ;;   0 - success, added.
 ;;   1 - exists
@@ -42,7 +42,6 @@
 ;;
 (defjson [:post "/api/vote/del"] {person_id :person_id
                                   place_id :place_id}
-  (do (votes/del person_id place_id)
-      0))
+  (do (votes/del person_id place_id) 0))
 
 ;; Make a random selection.
