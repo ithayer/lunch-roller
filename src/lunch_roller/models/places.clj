@@ -1,6 +1,8 @@
 (ns lunch-roller.models.places
   (:use clj-yelp.v2))
 
+
+(def data (atom {}))
 (def api-account {:consumer-key "W1M5MaPhBsPy3yztRyA_8Q"
                   :consumer-secret "LtVwl1PDVFqmY10cHNOZhOdYe6M"
                   :token "umPBe3HtXzzn6pjOkS_WejzEWkI9V8eW"
@@ -24,6 +26,8 @@
           (pmap get-from-yelp 
                 (range (int (/ cnt 20))))))
 
+(defn init []
+  (reset! data (get-restaurants 100)))
+
 (defn get-all []
-  [{:name "Chipotle"    :address "2nd St." :yelp {:rating 4 :url "http://yelp.com"}},
-   {:name "Specialty's" :address "1st st." :yelp {:rating 3 :url "http://yelp.com"}}])
+  @data)
