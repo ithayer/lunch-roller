@@ -33,7 +33,7 @@
   @data)
 
 (defn get-by-id [id]
-  (some (comp (partial = id) :id) @data))
+  (first (filter (comp (partial = id) :id) @data)))
 
 ;;    "businesses": [
 ;;    {
