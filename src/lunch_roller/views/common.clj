@@ -14,7 +14,8 @@
                (include-js "/js/lib/handlebars.js")
                (include-js "/js/lib/local-jquery.js")
                (include-js "/js/lib/local-handlebars.js")
-               (include-js "/js/lib/jquery.validate.js")]
+               (include-js "/js/lib/jquery.validate.js")
+               (include-js "/js/lib/local.js")]
               [:body
                [:div#wrapper
                 content]]))
