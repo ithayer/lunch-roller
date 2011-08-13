@@ -3,11 +3,108 @@ html, body {
 	color: #444;
 }
 
+.add-vote-button {
+	background: #000;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFF;
+	font-size: 77%;
+	padding: 5px 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.add-vote-button:hover {
+	background: #666;
+	color: #FFF;
+}
+
+.boxshadow .add-vote-button {
+	box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+}
+
 div#container {
 	margin: 0 auto;
 	width: 920px;
 }
 
-#logger {
+ul#logger {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	width: 920px;
+}
+
+div#content {
+	height: 600px;
+	overflow: hidden;
+	position: relative;
+	width: 920px;
+}
+
+ul#places {
+	background: #FFF;
+	height: 600px;
+	list-style: none;
+	left: 0;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 300px;
+	z-index: 10;
+}
+
+.rgba ul#places { background: rgba(255, 255, 255, .8); }
+
+	ul#places li {
+		border-bottom: 1px solid #CCC;
+		padding: 15px;
+		width: 255px;
+	}
+	
+		ul#places li div.preview, ul#places li div.details {
+			display: inline;
+			float: left;
+		}
+		
+		ul#places li div.preview { margin: 0 10px 0 0; }
+		
+		ul#places li div.preview img {
+			display: block;
+			margin: 0 0 5px;
+		}
+		
+		ul#places li img.preview { width: 65px; }
+		
+		ul#places li div.details { width: 180px; }
+		
+			ul#places li div.details div { font-size: 93%; }
+			
+			ul#places li div.details div.category {
+				color: #666;
+				font-size: 77%;
+				margin: 0 0 5px;
+				text-transform: uppercase;
+			}
+			
+			ul#places li div.details div.name { font-weight: bold; }
+			
+			ul#places li div.details div.address {
+				color: #666;
+				font-size: 77%;
+				margin: 0 0 10px;
+			}
+
+div#map {
+	height: 600px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 920px;
+	z-index: 1;
 }

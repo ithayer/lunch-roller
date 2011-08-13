@@ -41,9 +41,12 @@
 			
 		</div>
 		
+		<a id="jsGetVotedPlace" href="javascript:void(0);">Get Today's Votes!</a>
+		
 	</div>
 	
 	<!-- Libraries -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/lib/jquery.js"></script>
 	<script type="text/javascript" src="/js/lib/jquery.tmpl.js"></script>
 	<script type="text/javascript" src="/js/lib/underscore.js"></script>
@@ -52,11 +55,27 @@
 	
 	<!-- Templates -->
 	<script id="place-tmpl" type="text/x-jquery-tmpl">
-		<div class="name">${name}</div>
-		<div class="address">${address}</div>
-		<div class="vote">
+		<div class="preview">
 			
-			<a class="jsCastVote" href="javascript:void(0);">Add Vote</a>
+			<img class="preview" src="${image_url}" alt="${name}" />
+			
+			<img class="rating" src="${yelp_rating}" alt="${name}: Rating" />
+			
+		</div>
+		
+		<div class="details">
+			
+			<div class="category">${category}</div>
+			
+			<div class="name">${name}</div>
+			
+			<div class="address">${address}, ${city}, ${state} ${postal_code}</div>
+			
+			<div class="vote">
+			
+				<a class="add-vote-button jsCastVote" href="javascript:void(0);">Add Vote</a>
+				
+			</div>
 			
 		</div>
 	</script>
