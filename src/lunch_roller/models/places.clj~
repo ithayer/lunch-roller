@@ -1,0 +1,5 @@
+(ns lunch-roller.models.places
+  (:require [app.models.annotators :as annotators]
+            [app.models.util       :as model-util]
+            clj-record.boot)
+  (:use app.db))
