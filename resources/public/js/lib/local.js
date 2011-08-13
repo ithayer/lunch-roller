@@ -112,7 +112,7 @@ RFZ.page.init = function() {
 		zoom: 14,
 		zoomControl: true,
 		zoomControlOptions: {
-			position: google.maps.ControlPosition.RIGHT_CENTER:
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		center: myLatlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
