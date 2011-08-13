@@ -1,5 +1,6 @@
 (ns lunch-roller.models.votes
-  (require [clj-time.core :as time]))
+  (require [clj-time.core :as time]
+           [clj-time.coerce :as time-coerce]))
 
 (def data (atom []))
 
@@ -9,7 +10,7 @@
 
 (defn add [person_id place_id]
   (when-let [is-new (not (some (match-fn person_id place_id) @data))]
-    (swap! data conj {:person_id person_id :place_id place_id :time (time/now)})))
+    (swap! data conj {:person_id person_id :place_id place_id :time (time-coerce/to-long (time/now))})))
 
 (defn del [person_id place_id]
   (swap! data #(remove (match-fn person_id place_id) %)))
