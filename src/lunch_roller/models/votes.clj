@@ -3,9 +3,13 @@
 
 (def data (atom []))
 
-(defn add-vote [{person :person_id
-                 place  :place_id}]
-  (swap! data conj {:person_id person :place_id place :time (time/now)}))
+(defn add [person_id place_id]
+  (swap! data conj {:person_id person_id :place_id place_id :time (time/now)}))
+
+(defn del [person_id place_id]
+  (swap! data #(remove (fn [record] (and (= person_id (:person_id record))
+                                         (= place_id (:place_id record))))
+                       %)))
 
 (defn get-all []
   @data)
@@ -14,4 +18,5 @@
   (every? identity (map #(= (% t1) (% t2)) [time/year time/month time/day])))
 
 (defn get-today []
-  (filter (partial same-day (time/now))))
+  (filter (partial same-day (time/now)) @data))
+
