@@ -30,10 +30,14 @@
 ;;   0 - success, added.
 ;;   1 - exists
 ;;   2 - other error
+;;
 (defjson [:post "/api/vote/add"] {person_id :person_id
                                   place_id :place_id}
-  (let [result (votes/add person_id place_id)]
-    (if (nil? result) 1 0)))
+  (if (or (nil? person_id)
+          (nil? place_id))
+    2
+    (let [result (votes/add person_id place_id)]
+      (if (nil? result) 1 0))))
 
 ;; Get votes for today.
 (defjson "/api/votes/today" {}
@@ -42,11 +46,14 @@
 ;; Remove a vote.
 ;; Returns
 ;;   0 - success, deleted.
-;;   1 - other error.
-;;
+;;   2 - other error.
+;;   
 (defjson [:post "/api/vote/del"] {person_id :person_id
                                   place_id :place_id}
-  (do (votes/del person_id place_id) 0))
+  (if (or (nil? person_id)
+          (nil? place_id))
+    2
+    (do (votes/del person_id place_id) 0)))
 
 ;; Make a random selection.
 (defjson "/api/select" {}
