@@ -8,3 +8,4 @@
 (defpage "/" []
          (common/layout
            [:p "Welcome to lunch-roller"]))
+
