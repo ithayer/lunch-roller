@@ -28,6 +28,7 @@
 
 ;; Get votes for today.
 (defjson "/api/votes/today" {}
+  
   (votes/get-today))
 
 ;; Remove a vote.

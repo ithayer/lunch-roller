@@ -3,13 +3,16 @@
 
 (def data (atom []))
 
+(defn- match-fn [person_id place_id]
+  (fn [record] (and (= person_id (:person_id record))
+                    (= place_id (:place_id record)))))
+
 (defn add [person_id place_id]
-  (swap! data conj {:person_id person_id :place_id place_id :time (time/now)}))
+  (when-let [is-new (not (some (match-fn person_id place_id) @data))]
+    (swap! data conj {:person_id person_id :place_id place_id :time (time/now)})))
 
 (defn del [person_id place_id]
-  (swap! data #(remove (fn [record] (and (= person_id (:person_id record))
-                                         (= place_id (:place_id record))))
-                       %)))
+  (swap! data #(remove (match-fn person_id place_id) %)))
 
 (defn get-all []
   @data)
