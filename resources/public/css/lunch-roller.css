@@ -1,70 +1,147 @@
+/* B A S E */
+
 html, body {
-	background: #FFF;
-	color: #444;
+	color: #323232;
+	font-family: "Helvetica", "Arial", Sans-Serif;
 }
 
-.add-vote-button {
-	background: #000;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	color: #FFF;
-	font-size: 77%;
-	padding: 5px 10px;
-	text-decoration: none;
-	text-transform: uppercase;
+a { text-decoration: none; }
+
+/* T Y P O G R A P H Y */
+
+h1 {
+	border-bottom: 3px solid #EEE;
+	font-family: "Abel", "Helvetica", "Arial", Sans-Serif;
+	font-size: 30px;
+	margin: 0 0 15px;
+	padding: 0 0 5px;
 }
 
-.add-vote-button:hover {
-	background: #666;
-	color: #FFF;
+	h1 span {
+		color: #929292;
+		font-family: "Helvetica", "Arial", Sans-Serif;
+		font-size: 12px;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+p {
+	color: #626262;
+	font-size: 14px;
+	line-height: 1.2em;
+	margin: 0 0 15px;
 }
 
-.boxshadow .add-vote-button {
-	box-shadow: 0 0 4px rgba(0, 0, 0, .25);
-	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
-	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+/* B U T T O N S */
+
+a.app-button {
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(233, 233, 233) 35%,
+		rgb(250, 250, 250) 75%
+	);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.35, rgb(233, 233, 233)),
+		color-stop(0.75, rgb(250, 250, 250))
+	);
+	border: 1px solid #CBCBCB;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
+	-moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
+	color: #717171;
+	display: inline-block;
 }
 
-div#container {
-	margin: 0 auto;
-	width: 920px;
+	a.app-button span {
+		display: block;
+		font-size: 10px;
+		font-weight: bold;
+		letter-spacing: 1px;
+		padding: 4px 16px;
+		text-transform: uppercase;
+	}
+
+a.app-button:hover {
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(250, 250, 250) 35%,
+		rgb(255, 255, 255) 75%
+	);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.35, rgb(250, 250, 250)),
+		color-stop(0.75, rgb(255, 255, 255))
+	);
 }
 
-ul#logger {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	width: 920px;
+a.app-button-voted {
+	background: #474747;
+	border-color: #373737;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	-moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	color: #F0F0F0;
 }
 
-div#content {
-	height: 600px;
-	overflow: hidden;
-	position: relative;
-	width: 920px;
+a.app-button-voted:hover {
+	background: #676767;
+	border-color: #474747;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	-moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+	color: #F0F0F0;
+}
+
+/* C O N T I A I N E R */
+
+div#lunch-roller {
+	margin: 60px auto;
+	width: 940px;
+}
+
+/* M A I N  C O N T E N T */
+
+div.content { width: 940px; }
+
+ul#places, div#map {
+	display: inline;
+	float: left;
 }
 
 ul#places {
-	background: #FFF;
-	height: 600px;
+	border: 1px solid #CCC;
+	border-right: none;
 	list-style: none;
-	left: 0;
+	height: 598px;
 	margin: 0;
 	overflow: auto;
 	padding: 0;
-	position: absolute;
-	top: 0;
-	width: 300px;
-	z-index: 10;
+	width: 339px;
 }
 
-.rgba ul#places { background: rgba(255, 255, 255, .8); }
-
 	ul#places li {
-		border-bottom: 1px solid #CCC;
-		padding: 15px;
-		width: 255px;
+		background-image: -moz-linear-gradient(
+			center bottom,
+			rgb(250, 250, 250) 35%,
+			rgb(255, 255, 255) 75%
+		);
+		background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.35, rgb(250, 250, 250)),
+			color-stop(0.75, rgb(255, 255, 255))
+		);
+		border-top: 1px dotted #CCC;
+		padding: 10px;
 	}
 	
 		ul#places li div.preview, ul#places li div.details {
@@ -72,39 +149,91 @@ ul#places {
 			float: left;
 		}
 		
-		ul#places li div.preview { margin: 0 10px 0 0; }
+		ul#places li a.add-vote-button { clear: left; }
 		
-		ul#places li div.preview img {
-			display: block;
-			margin: 0 0 5px;
+		ul#places li div.preview {
+			margin: 0 10px 10px 0;
+			width: 58px;
 		}
 		
-		ul#places li img.preview { width: 65px; }
+			ul#places li div.preview img {
+				background: #F9F9F9;
+				border: 1px solid #EEE;
+				padding: 5px;
+				width: 45px;
+			}
 		
-		ul#places li div.details { width: 180px; }
+		ul#places li div.details { width: 236px; }
 		
-			ul#places li div.details div { font-size: 93%; }
+			ul#places li div.details .name { font-weight: bold; }
 			
-			ul#places li div.details div.category {
-				color: #666;
-				font-size: 77%;
+			ul#places li div.details .address {
+				color: #929292;
+				font-size: 12px;
 				margin: 0 0 5px;
-				text-transform: uppercase;
 			}
 			
-			ul#places li div.details div.name { font-weight: bold; }
-			
-			ul#places li div.details div.address {
-				color: #666;
-				font-size: 77%;
-				margin: 0 0 10px;
+			ul#places li div.details .rating em {
+				color: #929292;
+				font-style: italic;
 			}
+			
+		ul#places li a.app-button {
+			clear: left;
+		}
+		
+			ul#places li a.app-button span {
+				padding: 8px 0;
+				text-align: center;
+				width: 304px;
+			}
+			
+		ul#places li a.add-vote-button:hover {
+			background-image: -moz-linear-gradient(
+				center bottom,
+				rgb(250, 250, 250) 35%,
+				rgb(255, 255, 255) 75%
+			);
+			background-image: -webkit-gradient(
+				linear,
+				left bottom,
+				left top,
+				color-stop(0.35, rgb(250, 250, 250)),
+				color-stop(0.75, rgb(255, 255, 255))
+			);
+		}
+	
+	ul#places li.first { border: none; }
 
 div#map {
 	height: 600px;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 920px;
-	z-index: 1;
+	width: 600px;
 }
+
+/* M O D A L */
+
+div#modal {
+	background: #FFF;
+	border: 2px solid #999;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	display: none;
+	left: 50%;
+	margin: 0 0 0 -235px;
+	padding: 30px 10px;
+	position: absolute;
+	text-align: center;
+	top: 300px;
+	width: 450px;
+}
+
+.rgba div#modal {
+	background: rgba(255, 255, 255, .9);
+	border: 2px solid rgba(0, 0, 0, .25);
+}
+
+	div#modal h1 {
+		border: none;
+		padding: 0;
+	}

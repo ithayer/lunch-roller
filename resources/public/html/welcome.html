@@ -17,22 +17,25 @@
 	<link rel="stylesheet" type="text/css" href="/css/reset.css" media="all">
 	<link rel="stylesheet" type="text/css" href="/css/lunch-roller.css" media="all">
 	
+	<!-- Google Fonts -->
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Abel" media="all">
+	
 	<!-- JavaScript at the bottom for faster page load -->
 	<script type="text/javascript" src="/js/lib/modernizr-2.0.6.js"></script>
 </head>
 
 <body>
 	
-	<div id="container">
+	<div id="lunch-roller">
 		
-		<ul id="logger">
-			<li>Welcome back {Logged In User}</li>
-			<li>Logout</li>
-		</ul>
+		<h1>
+			ReadyForZero Lunch Roller
+			<span>Picking lunch has never been so easy!</span>
+		</h1>
 		
-		<h1>ReadyForZero Lunch Roller</h1>
+		<p>Cast votes for where you'd like to go to lunch today. Then click this button: &nbsp;<a id="jsPickMyLunch" class="app-button" href="javascript:void(0);"><span>Where should I eat?</span></a></p>
 		
-		<div id="content">
+		<div class="content clearfix">
 			
 			<ul id="places">
 			</ul>
@@ -41,7 +44,25 @@
 			
 		</div>
 		
-		<a id="jsGetVotedPlace" href="javascript:void(0);">Get Today's Votes!</a>
+		<div class="footer"></div>
+		
+	</div>
+	
+	<div id="modal">
+		
+		<p>You should go to lunch at...</p>
+		
+		<h1 id="jsVotedPlaceName">Place name</h1>
+		
+		<p>
+			<a href="javascript:void(0);" id="jsPickAgain" class="app-button">
+				<span>Pick again</span>
+			</a>
+			&nbsp;or&nbsp;
+			<a href="javascript:void(0);" id="jsCloseDialog" class="app-button">
+				<span>Close this dialog</span>
+			</a>
+		</p>
 		
 	</div>
 	
@@ -57,27 +78,23 @@
 	<script id="place-tmpl" type="text/x-jquery-tmpl">
 		<div class="preview">
 			
-			<img class="preview" src="${image_url}" alt="${name}" />
-			
-			<img class="rating" src="${yelp_rating}" alt="${name}: Rating" />
+			<img src="${image_url}" alt="${name}" />
 			
 		</div>
 		
 		<div class="details">
 			
-			<div class="category">${category}</div>
-			
 			<div class="name">${name}</div>
 			
-			<div class="address">${address}, ${city}, ${state} ${postal_code}</div>
+			<div class="address">${address}</div>
 			
-			<div class="vote">
-			
-				<a class="add-vote-button jsCastVote" href="javascript:void(0);">Add Vote</a>
-				
-			</div>
+			<div class="rating"><img src="${rating_url}" alt="Rating for ${name}" /> <em>(${review_count})</em></div>
 			
 		</div>
+		
+		<a class="app-button jsCastVote" href="javascript:void(0);">
+			<span>Add Vote</span>
+		</a>
 	</script>
 	
 	<!--[if lt IE 7 ]>

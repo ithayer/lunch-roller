@@ -7,13 +7,12 @@ RFZ.page = {};
 // Places model
 RFZ.page.Place = Backbone.Model.extend({
 	id: 0,
-	categories: [],
 	name: '',
 	image_url: '',
 	location: {},
+	rating_url: '',
 	rating: 0,
 	review_count: 0,
-	rating_img_url_small: '',
 	url: ''
 });
 
@@ -27,17 +26,13 @@ RFZ.page.PlaceView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-		//console.log('Here');
-		
 		var templateData = {
 			name: this.model.get('name'),
-			category: this.model.get('categories')[0][0],
 			address: this.model.get('location').address,
-			city: this.model.get('location').city,
-			state: this.model.get('location').state_code,
-			postal_code: this.model.get('location').postal_code,
 			image_url: this.model.get('image_url'),
-			yelp_rating: this.model.get('rating_img_url_small')
+			rating_url: this.model.get('rating_url'),
+			rating: this.model.get('rating'),
+			review_count: this.model.get('review_count')
 		}
 		
 		var myLatlng = new google.maps.LatLng(this.model.get('location').coordinate.latitude, this.model.get('location').coordinate.longitude);
@@ -53,7 +48,9 @@ RFZ.page.PlaceView = Backbone.View.extend({
 	castVote: function(event) {
 		event = jQuery.event.fix(event);
 		
-		if($(event.target).hasClass('voted')) {
+		var elem = this.el;
+		
+		if(elem.find('.jsCastVote').hasClass('app-button-voted')) {
 			$.ajax({
 				url: '/api/vote/del',
 				data: {
@@ -64,7 +61,7 @@ RFZ.page.PlaceView = Backbone.View.extend({
 				success: function(result) {
 					if(result === 0) {
 						// Vote removed
-						$(event.target).text('Add vote').removeClass('voted');
+						elem.find('.jsCastVote').html('<span>Add Vote</span>').removeClass('app-button-voted');
 					} else {
 						// TODO
 					}
@@ -81,7 +78,7 @@ RFZ.page.PlaceView = Backbone.View.extend({
 				success: function(result) {
 					if(result === 0 || result === 1) {
 						// Vote added or exists
-						$(event.target).text('Remove vote').addClass('voted');
+						elem.find('.jsCastVote').html('<span>Remove Vote</span>').addClass('app-button-voted');
 					} else {
 						// TODO
 					}
@@ -91,55 +88,69 @@ RFZ.page.PlaceView = Backbone.View.extend({
 	}
 });
 
+RFZ.page.googleMap = function() {
+	// Set up map
+	var myLatlng = new google.maps.LatLng(37.789607, -122.39984);
+	var myOptions = {
+		zoom: 14,
+		zoomControl: true,
+		center: myLatlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	
+	RFZ.page.map = new google.maps.Map(document.getElementById('map'), myOptions);
+}
+
+
 RFZ.page.todaysVote = function() {
-	$('#jsGetVotedPlace').click(function(event) {
+	$('#jsPickMyLunch, #jsPickAgain').click(function(event) {
 		event.preventDefault();
 		
 		$.ajax({
 			url: '/api/select',
 			success: function(result) {
 				console.log(result);
+				if(result) {
+					$('#jsVotedPlaceName').text(result.name);
+					
+					$('#modal').show();
+				} else {
+					alert('You need to vote on places before picking where to eat!')
+				}
 			}
 		});
 	});
+	
+	$('#jsCloseDialog').click(function() {
+		$('#modal').hide();
+	});
 }
 
-//api/places
 RFZ.page.init = function() {
 	// Set up map
-	var myLatlng = new google.maps.LatLng(37.775, -122.4183333);
-	var myOptions = {
-		zoom: 14,
-		zoomControl: true,
-		zoomControlOptions: {
-			position: google.maps.ControlPosition.RIGHT_CENTER
-		},
-		center: myLatlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	
-	RFZ.page.map = new google.maps.Map(document.getElementById("map"), myOptions);
+	RFZ.page.googleMap();
 	
 	// Grab Places
 	$.ajax({
 		url: '/api/places',
 		success: function(result) {
 			$.each(result, function(index, value) {
-				//console.log(value);
-				
 				var currentModel = new RFZ.page.Place({
 					id: value.id,
-					categories: value.categories,
 					name: value.name,
 					image_url: value.image_url,
 					location: value.location,
+					rating_url: value.rating_img_url,
 					rating: value.rating,
 					review_count: value.review_count,
-					rating_img_url_small: value.rating_img_url_small,
 					url: value.url
 				});
 				
-				var currentEl = $('<li/>', { class: 'clearfix' }).appendTo($('#places'));
+				if(index === 0) {
+					var currentEl = $('<li/>', { class: ' first clearfix' }).appendTo($('#places'));
+				} else {
+					var currentEl = $('<li/>', { class: 'clearfix' }).appendTo($('#places'));
+				}
 				
 				new RFZ.page.PlaceView({
 					el: currentEl,
